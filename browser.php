@@ -7,11 +7,13 @@
 
 require_once('db.php');
 require_once('functions.php');
+require_once('config.php');
+
+$link = new Database($_db, $_arch);
 
 $link->createArch('channels');
 $link->createArch('history');
 
-$link = new Database('bot', 'architecture.json');
 if(isset($_POST['listChannels']))
 	je(result2array($link->db->query('SELECT name, id FROM channels')));
 
@@ -69,7 +71,8 @@ if(@is_numeric($_POST['listHistory']))
 	</style>
 </head>
 <body>
-<select id="channel"></select> <a href="javascript:;" id="refresh">Refresh</a>
+<select id="channel"></select> <a href="javascript:;" id="refresh">Refresh</a><br />
+<i>latest tracks are on top</i><br />
 <pre id="history"></pre>
 </body>
 </html>
